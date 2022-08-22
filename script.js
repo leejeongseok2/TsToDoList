@@ -191,6 +191,6 @@ const init = () => {
     showActiveBtn.addEventListener('click',onClickShowTodosType);
     showCompletedBtn.addEventListener('click',onClickShowTodosType);
 
-    setLeftItems()
+    setLeftItems();
 }
-init()
+init();
