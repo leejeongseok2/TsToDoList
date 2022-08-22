@@ -165,9 +165,13 @@ const init = () => {
     });
     todoInput === null || todoInput === void 0 ? void 0 : todoInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            appendTodos(e.target.value);
-            localStorage.setItem('items', JSON.stringify(todos));
-            todoInput.value = '';
+            let time = new Date().getTime();
+            for (let i = 0;i<1000;i++){
+                appendTodos(e.target.value);
+                localStorage.setItem('items', JSON.stringify(todos));
+                todoInput.value = '';
+            }
+            console.log(((new Date().getTime()-time)/1000));
             
         }
     });
