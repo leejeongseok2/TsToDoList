@@ -171,6 +171,7 @@ const init = () => {
                 appendTodos(i);
                 localStorage.setItem('items', JSON.stringify(todos));
                 todoInput.value = '';
+                console.log(i);
             }
             console.log(((new Date().getTime()-time)/1000));
             
