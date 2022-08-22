@@ -12,10 +12,10 @@ localStorage.setItem('items', JSON.stringify(todos));
 const data: Array<todo>  = JSON.parse(localStorage.getItem('items')||"");
 
 class todo{
-    id : string ;
+    id : number ;
     isCompleted : boolean;
     content : string;
-    constructor(id : string,
+    constructor(id : number,
         isCompleted : boolean,
         content : string){
             this.id=id;
@@ -23,9 +23,9 @@ class todo{
             this.content=content;
         }
 }
-let id = localStorage.items.length;
+let id = todos.length===0?0:todos[todos.length-1].id ;
 //let id = todos[todos.length-1].id;
-const setId = (newId: string) => {id = newId};
+const setId = (newId: number) => {id = newId};
 
 let isAllCompleted = false;
 const setIsAllCompleted = (bool: boolean) => { isAllCompleted = bool};
@@ -92,14 +92,14 @@ const appendTodos = (text: string) => {
     checkIsAllCompleted();
     paintTodos();
 }
-const deleteTodo = (todoId: string) => {
-    const newTodos = getAllTodos().filter((todo: { id: string; }) => todo.id !== todoId );
+const deleteTodo = (todoId: number) => {
+    const newTodos = getAllTodos().filter((todo: { id: number; }) => todo.id !== todoId );
     localStorage.setItem('items', JSON.stringify(newTodos));
     setTodos(newTodos);
     setLeftItems();
     paintTodos();
 }
-const completeTodo = (todoId: string) => {
+const completeTodo = (todoId: number) => {
     const newTodos = getAllTodos().map((todo: todo) => todo.id === todoId ? {...todo,  isCompleted: !todo.isCompleted} : todo )
     localStorage.setItem('items', JSON.stringify(newTodos));
     setTodos(newTodos);
@@ -109,7 +109,7 @@ const completeTodo = (todoId: string) => {
 }
 
 
-const paintTodo = (todo: { id: string; content: string; isCompleted: boolean; }) => {
+const paintTodo = (todo: { id: number; content: string; isCompleted: boolean; }) => {
     const todoItemElem = document.createElement('li');
     todoItemElem.classList.add('todo-item');
 
@@ -152,15 +152,15 @@ const paintTodos = () => {
     switch (currentShowType) {
         case 'all':
             const allTodos = getAllTodos();
-            allTodos.forEach((todo: { id: string; content: string; isCompleted: boolean; }) => { paintTodo(todo);});
+            allTodos.forEach((todo: { id: number; content: string; isCompleted: boolean; }) => { paintTodo(todo);});
             break;
         case 'active': 
             const activeTodos = getActiveTodos();
-            activeTodos.forEach((todo: { id: string; content: string; isCompleted: boolean; }) => { paintTodo(todo);});
+            activeTodos.forEach((todo: { id: number; content: string; isCompleted: boolean; }) => { paintTodo(todo);});
             break;
         case 'completed': 
             const completedTodos = getCompletedTodos();
-            completedTodos.forEach((todo: { id: string; content: string; isCompleted: boolean; }) => { paintTodo(todo);});
+            completedTodos.forEach((todo: { id: number; content: string; isCompleted: boolean; }) => { paintTodo(todo);});
             break;
         default:
             break;
@@ -182,7 +182,7 @@ const onClickShowTodosType = (e: MouseEvent|null) => {
 }
 
 const init = () => {
-    data.forEach((item: { id: string; content: string; isCompleted: boolean; }) => {
+    data.forEach((item: { id: number; content: string; isCompleted: boolean; }) => {
         paintTodo(item);
       });
     todoInput?.addEventListener('keypress', (e: KeyboardEvent) =>{

@@ -17,7 +17,7 @@ class todo {
         this.content = content;
     }
 }
-let id = localStorage.items.length;
+let id = todos.length === 0 ? 0 : todos[todos.length - 1].id;
 //let id = todos[todos.length-1].id;
 const setId = (newId) => { id = newId; };
 let isAllCompleted = false;
@@ -165,16 +165,9 @@ const init = () => {
     });
     todoInput === null || todoInput === void 0 ? void 0 : todoInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            let time = new Date().getTime();
-            for (let i = 0;i<1000;i++){
-                //appendTodos(e.target.value);
-                appendTodos(i);
-                localStorage.setItem('items', JSON.stringify(todos));
-                todoInput.value = '';
-                console.log(i);
-            }
-            console.log(((new Date().getTime()-time)/1000));
-            
+            appendTodos(e.target.value);
+            localStorage.setItem('items', JSON.stringify(todos));
+            todoInput.value = '';
         }
     });
     todoInsertBtn === null || todoInsertBtn === void 0 ? void 0 : todoInsertBtn.addEventListener('click', () => {
