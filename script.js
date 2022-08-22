@@ -165,15 +165,25 @@ const init = () => {
     });
     todoInput === null || todoInput === void 0 ? void 0 : todoInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
-            appendTodos(e.target.value);
-            localStorage.setItem('items', JSON.stringify(todos));
-            todoInput.value = '';
+            if (e.target.value == "") {
+                todoInput.value = '';
+            }
+            else {
+                appendTodos(e.target.value);
+                localStorage.setItem('items', JSON.stringify(todos));
+                todoInput.value = '';
+            }
         }
     });
     todoInsertBtn === null || todoInsertBtn === void 0 ? void 0 : todoInsertBtn.addEventListener('click', () => {
-        appendTodos(todoInput.value);
-        localStorage.setItem('items', JSON.stringify(todos));
-        todoInput.value = '';
+        if (todoInput.value == "") {
+            todoInput.value = '';
+        }
+        else {
+            appendTodos(todoInput.value);
+            localStorage.setItem('items', JSON.stringify(todos));
+            todoInput.value = '';
+        }
     });
     completeAllBtn === null || completeAllBtn === void 0 ? void 0 : completeAllBtn.addEventListener('click', onClickCompleteAll);
     showAllBtn === null || showAllBtn === void 0 ? void 0 : showAllBtn.addEventListener('click', onClickShowTodosType);

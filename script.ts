@@ -23,7 +23,7 @@ class todo{
             this.content=content;
         }
 }
-let id = todos.length===0?0:todos[todos.length-1].id ;
+let id:number = todos.length===0?0:todos[todos.length-1].id ;
 //let id = todos[todos.length-1].id;
 const setId = (newId: number) => {id = newId};
 
@@ -110,25 +110,25 @@ const completeTodo = (todoId: number) => {
 
 
 const paintTodo = (todo: { id: number; content: string; isCompleted: boolean; }) => {
-    const todoItemElem = document.createElement('li');
+    const todoItemElem : HTMLLIElement| null = document.createElement('li');
     todoItemElem.classList.add('todo-item');
 
 
-    const checkboxElem = document.createElement('div');
+    const checkboxElem: HTMLDivElement| null = document.createElement('div');
     checkboxElem.classList.add('checkbox');
     checkboxElem.addEventListener('click', () => completeTodo(todo.id))
 
-    const todoElem = document.createElement('div');
+    const todoElem: HTMLDivElement| null = document.createElement('div');
     todoElem.classList.add('todo');
     todoElem.innerText = todo.content;
 
-    const todoinsertElem = document.createElement('div');
+    const todoinsertElem: HTMLDivElement| null = document.createElement('div');
     todoinsertElem.classList.add('todo-result');
     todoinsertElem.innerText = '진행중';
     if(todo.isCompleted) todoinsertElem.innerText = '완료';
 
 
-    const delBtnElem = document.createElement('button');
+    const delBtnElem: HTMLButtonElement| null = document.createElement('button');
     delBtnElem.classList.add('delBtn');
     delBtnElem.addEventListener('click', () =>  deleteTodo(todo.id))
     delBtnElem.innerHTML = 'X';
@@ -187,16 +187,26 @@ const init = () => {
       });
     todoInput?.addEventListener('keypress', (e: KeyboardEvent) =>{
         if( e.key === 'Enter' ){
-            appendTodos((<HTMLInputElement>e.target).value); 
-            localStorage.setItem('items', JSON.stringify(todos));
-            todoInput.value ='';
-        }
+            if((<HTMLInputElement>e.target).value == ""){
+                todoInput.value ='';
+                
+            }else
+            {
+                appendTodos((<HTMLInputElement>e.target).value); 
+                localStorage.setItem('items', JSON.stringify(todos));
+                todoInput.value ='';
+                }
+            }
     })
     todoInsertBtn?.addEventListener('click', () =>{
-        appendTodos(todoInput!.value); 
-        localStorage.setItem('items', JSON.stringify(todos));
-        todoInput!.value = '';
-        
+        if(todoInput!.value== ""){
+            todoInput!.value = '';
+        }
+        else{
+            appendTodos(todoInput!.value); 
+            localStorage.setItem('items', JSON.stringify(todos));
+            todoInput!.value = '';
+        }
     });
     completeAllBtn?.addEventListener('click',  onClickCompleteAll);
     showAllBtn?.addEventListener('click', onClickShowTodosType);
@@ -205,4 +215,7 @@ const init = () => {
 
     setLeftItems();
 }
+
+
+
 init();
