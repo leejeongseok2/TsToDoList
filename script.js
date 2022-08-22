@@ -167,7 +167,8 @@ const init = () => {
         if (e.key === 'Enter') {
             let time = new Date().getTime();
             for (let i = 0;i<1000;i++){
-                appendTodos(e.target.value);
+                //appendTodos(e.target.value);
+                appendTodos(i);
                 localStorage.setItem('items', JSON.stringify(todos));
                 todoInput.value = '';
             }
