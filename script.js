@@ -40,7 +40,7 @@ const setLeftItems = () => {
 }
 const setCompleteItems = () => {
     const completeTodos = getCompletedTodos();
-    leftItems.innerHTML = `${completeTodos.length} 개의 일정을 완료하셨습니다.`;
+    leftItems.innerHTML = `${completeTodos.length} 개의 일정을 완료.`;
 }
 const completeAll = () => {
     completeAllBtn.classList.add('checked');
